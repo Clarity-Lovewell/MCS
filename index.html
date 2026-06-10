@@ -3,9 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Marriage Conversation System</title>
+<title>Marriage OS</title>
 
 <style>
+:root{
+    --primary:#4f46e5;
+    --bg:#f5f7fb;
+    --card:#ffffff;
+    --text:#1f2937;
+    --muted:#6b7280;
+    --border:#e5e7eb;
+}
+
 *{
     box-sizing:border-box;
     margin:0;
@@ -14,42 +23,38 @@
 }
 
 body{
-    background:#f4f6f8;
-    display:flex;
-    justify-content:center;
-    padding:20px;
+    background:var(--bg);
+    color:var(--text);
 }
 
-.phone{
-    width:390px;
-    max-width:100%;
-    height:844px;
-    background:white;
-    border-radius:30px;
-    overflow:hidden;
-    box-shadow:0 20px 50px rgba(0,0,0,.15);
+.app{
+    height:100dvh;
     display:flex;
     flex-direction:column;
 }
 
-.header{
+header{
+    background:white;
     padding:18px;
-    border-bottom:1px solid #eee;
+    border-bottom:1px solid var(--border);
+    position:sticky;
+    top:0;
+    z-index:10;
 }
 
-.header h1{
-    font-size:20px;
+header h1{
+    font-size:22px;
 }
 
-.header p{
-    color:#666;
+header p{
+    color:var(--muted);
     font-size:13px;
     margin-top:4px;
 }
 
 .content{
     flex:1;
-    overflow:auto;
+    overflow-y:auto;
     padding:16px;
 }
 
@@ -62,82 +67,130 @@ body{
 }
 
 .card{
-    background:white;
-    border-radius:16px;
-    padding:14px;
-    margin-bottom:12px;
-    border:1px solid #e8e8e8;
+    background:var(--card);
+    border-radius:18px;
+    padding:16px;
+    margin-bottom:14px;
+    border:1px solid var(--border);
+}
+
+.card h2{
+    font-size:18px;
+    margin-bottom:8px;
 }
 
 .card h3{
-    margin-bottom:6px;
+    font-size:16px;
+    margin-bottom:8px;
 }
 
-.muted{
-    color:#777;
-    font-size:13px;
+.card p{
+    color:var(--muted);
+    line-height:1.4;
+}
+
+.priority{
+    display:inline-block;
+    background:#eef2ff;
+    color:var(--primary);
+    padding:6px 12px;
+    border-radius:999px;
+    font-size:12px;
+    margin-top:10px;
+}
+
+.primary-btn{
+    width:100%;
+    border:none;
+    background:var(--primary);
+    color:white;
+    padding:14px;
+    border-radius:14px;
+    font-weight:600;
+    margin-top:12px;
+}
+
+.secondary-btn{
+    width:100%;
+    border:none;
+    background:#eef2ff;
+    color:var(--primary);
+    padding:14px;
+    border-radius:14px;
+    font-weight:600;
+    margin-top:10px;
+}
+
+input, textarea{
+    width:100%;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:12px;
+    margin-top:8px;
+    font-size:14px;
+}
+
+textarea{
+    resize:none;
 }
 
 .mic{
-    width:90px;
-    height:90px;
+    width:100px;
+    height:100px;
     border-radius:50%;
-    background:#4f46e5;
+    background:var(--primary);
     color:white;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:38px;
+    font-size:42px;
     margin:20px auto;
-}
-
-.input{
-    width:100%;
-    border:1px solid #ddd;
-    border-radius:12px;
-    padding:12px;
-    margin-top:10px;
-}
-
-.button{
-    width:100%;
-    margin-top:12px;
-    background:#4f46e5;
-    color:white;
-    border:none;
-    padding:12px;
-    border-radius:12px;
-    font-weight:600;
 }
 
 .vote-row{
     display:flex;
-    gap:6px;
-    margin-top:10px;
+    gap:8px;
+    margin-top:12px;
 }
 
 .vote{
     flex:1;
     text-align:center;
-    padding:8px;
-    border-radius:10px;
-    background:#f2f2f2;
-    font-size:12px;
+    padding:10px;
+    border-radius:12px;
+    background:#f3f4f6;
+    font-size:13px;
 }
 
-.badge{
+.topic{
+    padding:14px;
+    border:1px solid var(--border);
+    border-radius:14px;
+    margin-bottom:10px;
+}
+
+.topic-title{
+    font-weight:600;
+}
+
+.small{
+    color:var(--muted);
+    font-size:13px;
+    margin-top:4px;
+}
+
+.status{
     display:inline-block;
+    margin-top:8px;
+    font-size:12px;
     padding:5px 10px;
     border-radius:999px;
-    background:#eef2ff;
-    color:#4f46e5;
-    font-size:12px;
-    margin-top:6px;
+    background:#f3f4f6;
 }
 
 .timeline{
-    border-left:2px solid #ddd;
-    margin-left:10px;
+    border-left:2px solid var(--border);
+    margin-left:8px;
     padding-left:14px;
 }
 
@@ -145,281 +198,232 @@ body{
     margin-bottom:14px;
 }
 
-.prompt{
-    margin-top:10px;
-}
-
-.prompt label{
-    display:block;
-    margin-bottom:5px;
-    font-size:13px;
-    font-weight:600;
-}
-
-.prompt textarea{
-    width:100%;
-    border:1px solid #ddd;
-    border-radius:10px;
-    padding:8px;
-    resize:none;
-}
-
-.stats{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-}
-
-.stat{
-    background:#f8f9ff;
-    border-radius:14px;
-    padding:14px;
-}
-
-.stat h2{
-    margin-bottom:4px;
-}
-
-.nav{
+.bottom-nav{
     display:flex;
-    border-top:1px solid #eee;
     background:white;
+    border-top:1px solid var(--border);
 }
 
-.nav button{
+.bottom-nav button{
     flex:1;
+    padding:14px 6px;
     border:none;
     background:white;
-    padding:12px 6px;
     font-size:12px;
-    cursor:pointer;
 }
 
-.nav button.active{
-    color:#4f46e5;
+.bottom-nav button.active{
+    color:var(--primary);
     font-weight:700;
 }
 </style>
 </head>
 <body>
 
-<div class="phone">
+<div class="app">
 
-    <div class="header">
-        <h1>Marriage OS</h1>
-        <p>Shared Conversation System</p>
+<header>
+    <h1>Marriage OS</h1>
+    <p>Tonight's conversation starts here</p>
+</header>
+
+<div class="content">
+
+    <!-- TONIGHT -->
+    <div class="tab active" id="tonight">
+
+        <div class="card">
+            <h2>Tonight's Queue</h2>
+            <p>Based on both spouses' priorities</p>
+
+            <div class="topic" style="margin-top:12px;">
+                <div class="topic-title">#1 Budget Planning</div>
+                <div class="small">Wife ❤️ • Husband ❤️</div>
+            </div>
+
+            <div class="topic">
+                <div class="topic-title">#2 Christmas Plans</div>
+                <div class="small">Wife ❤️ • Husband 👍</div>
+            </div>
+
+            <div class="topic">
+                <div class="topic-title">#3 Dishwasher Tablets</div>
+                <div class="small">Wife 👍 • Husband 👍</div>
+            </div>
+
+            <button class="primary-btn">Start Top Discussion</button>
+        </div>
+
+        <div class="card">
+            <h2>Current Discussion</h2>
+
+            <div class="priority">Discussing</div>
+
+            <div style="margin-top:14px;">
+                <strong>Topic:</strong><br>
+                Christmas Plans
+            </div>
+
+            <div style="margin-top:14px;">
+                <strong>Why does this matter?</strong>
+                <textarea rows="2">Need clarity for both families before December.</textarea>
+            </div>
+
+            <div style="margin-top:14px;">
+                <strong>Current Position</strong>
+                <textarea rows="2">Need to decide how to split Christmas Day.</textarea>
+            </div>
+
+            <button class="secondary-btn">Mark Decided</button>
+            <button class="secondary-btn">Need Research</button>
+            <button class="secondary-btn">Continue Tomorrow</button>
+        </div>
+
     </div>
 
-    <div class="content">
+    <!-- CAPTURE -->
+    <div class="tab" id="capture">
 
-        <!-- CAPTURE -->
-        <div class="tab active" id="capture">
+        <div class="card">
+
             <div class="mic">🎤</div>
 
-            <div class="card">
-                <h3>Quick Capture</h3>
-                <input class="input" placeholder="Need to discuss Christmas plans...">
-                <button class="button">Save Topic</button>
-            </div>
+            <h2>Quick Capture</h2>
 
-            <div class="card">
-                <h3>Recent Captures</h3>
-                <p>Second Car</p>
-                <p>Christmas Boundaries</p>
-                <p>Dishwasher Tablets</p>
-            </div>
-        </div>
+            <p>What's something we should talk about?</p>
 
-        <!-- VOTE -->
-        <div class="tab" id="vote">
+            <input placeholder="Future schooling options">
 
-            <div class="card">
-                <h3>Today's Suggested Agenda</h3>
-                <div class="badge">1. Budget Planning</div><br>
-                <div class="badge">2. Family Boundaries</div><br>
-                <div class="badge">3. Dishwasher Tablets</div>
-            </div>
-
-            <div class="card">
-                <h3>Budget Planning</h3>
-                <p class="muted">Your vote + spouse vote</p>
-
-                <div class="vote-row">
-                    <div class="vote">High</div>
-                    <div class="vote">Medium</div>
-                    <div class="vote">Low</div>
-                    <div class="vote">Later</div>
-                </div>
-
-                <div class="badge">Combined Score: 9</div>
-            </div>
-
-            <div class="card">
-                <h3>Dishwasher Tablets</h3>
-
-                <div class="vote-row">
-                    <div class="vote">High</div>
-                    <div class="vote">Medium</div>
-                    <div class="vote">Low</div>
-                    <div class="vote">Later</div>
-                </div>
-
-                <div class="badge">Combined Score: 6</div>
-            </div>
+            <button class="primary-btn">
+                Save Topic
+            </button>
 
         </div>
 
-        <!-- ACTIVE -->
-        <div class="tab" id="active">
+        <div class="card">
+            <h3>Recent Captures</h3>
 
-            <div class="card">
-                <h3>Family Boundaries</h3>
-                <span class="badge">Discussing</span>
-
-                <div class="prompt">
-                    <label>What are we trying to decide?</label>
-                    <textarea rows="2">How much notice should family give before visiting?</textarea>
-                </div>
-
-                <div class="prompt">
-                    <label>Why does this matter?</label>
-                    <textarea rows="2">Need privacy and predictable plans.</textarea>
-                </div>
-
-                <div class="prompt">
-                    <label>Current Position</label>
-                    <textarea rows="2">Need to discuss exceptions.</textarea>
-                </div>
+            <div class="topic">
+                <div class="topic-title">Second Car</div>
             </div>
 
-            <div class="card">
-                <h3>Timeline</h3>
-
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <strong>10 Jun</strong><br>
-                        Topic Created
-                    </div>
-
-                    <div class="timeline-item">
-                        <strong>11 Jun</strong><br>
-                        First Discussion
-                    </div>
-
-                    <div class="timeline-item">
-                        <strong>11 Jun</strong><br>
-                        Research Needed
-                    </div>
-                </div>
+            <div class="topic">
+                <div class="topic-title">Future Schooling</div>
             </div>
 
-        </div>
-
-        <!-- DECISIONS -->
-        <div class="tab" id="decisions">
-
-            <div class="card">
-                <h3>Dishwasher Tablets</h3>
-
-                <p><strong>Decision:</strong></p>
-                <p>Aldi Tablets</p>
-
-                <br>
-
-                <p><strong>Reason:</strong></p>
-                <p>Cheaper with acceptable cleaning performance.</p>
-
-                <br>
-
-                <span class="badge">Review Sept 2026</span>
+            <div class="topic">
+                <div class="topic-title">Holiday Ideas</div>
             </div>
-
-            <div class="card">
-                <h3>Weekly Date Night</h3>
-
-                <p><strong>Decision:</strong></p>
-                <p>Thursday Night</p>
-
-                <br>
-
-                <p><strong>Reason:</strong></p>
-                <p>Best fit around work schedules.</p>
-            </div>
-
-        </div>
-
-        <!-- DASHBOARD -->
-        <div class="tab" id="dashboard">
-
-            <div class="stats">
-
-                <div class="stat">
-                    <h2>14</h2>
-                    <p>Inbox Topics</p>
-                </div>
-
-                <div class="stat">
-                    <h2>3</h2>
-                    <p>Active Topics</p>
-                </div>
-
-                <div class="stat">
-                    <h2>27</h2>
-                    <p>Decisions</p>
-                </div>
-
-                <div class="stat">
-                    <h2>4</h2>
-                    <p>Reviews Due</p>
-                </div>
-
-            </div>
-
-            <div style="height:12px;"></div>
-
-            <div class="card">
-                <h3>Top Voted Today</h3>
-                <ol style="padding-left:20px;margin-top:10px;">
-                    <li>Budget Planning</li>
-                    <li>Family Boundaries</li>
-                    <li>Dishwasher Tablets</li>
-                </ol>
-            </div>
-
-            <div class="card">
-                <h3>Recently Decided</h3>
-                <p>✓ Weekly Date Night</p>
-                <p>✓ Aldi Dishwasher Tablets</p>
-                <p>✓ Shared Grocery Budget</p>
-            </div>
-
         </div>
 
     </div>
 
-    <div class="nav">
-        <button class="active" onclick="showTab('capture',this)">Capture</button>
-        <button onclick="showTab('vote',this)">Vote</button>
-        <button onclick="showTab('active',this)">Active</button>
-        <button onclick="showTab('decisions',this)">Decisions</button>
-        <button onclick="showTab('dashboard',this)">Dashboard</button>
+    <!-- TOPICS -->
+    <div class="tab" id="topics">
+
+        <div class="card">
+            <h2>Waiting</h2>
+
+            <div class="topic">
+                <div class="topic-title">Second Car</div>
+                <div class="status">Waiting</div>
+            </div>
+
+            <div class="topic">
+                <div class="topic-title">Future Schooling</div>
+                <div class="status">Waiting</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Discussing</h2>
+
+            <div class="topic">
+                <div class="topic-title">Christmas Plans</div>
+                <div class="status">Discussing</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Need Research</h2>
+
+            <div class="topic">
+                <div class="topic-title">Mortgage Refinance</div>
+                <div class="status">Research</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- DECISIONS -->
+    <div class="tab" id="decisions">
+
+        <div class="card">
+            <h2>Dishwasher Tablets</h2>
+
+            <p><strong>Decision</strong></p>
+            <p>Aldi Tablets</p>
+
+            <br>
+
+            <p><strong>Reason</strong></p>
+            <p>Lower cost and acceptable performance.</p>
+
+            <div class="priority">
+                Review Sept 2026
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Weekly Date Night</h2>
+
+            <p><strong>Decision</strong></p>
+            <p>Thursday Night</p>
+
+            <br>
+
+            <p><strong>Reason</strong></p>
+            <p>Best fit around work schedules.</p>
+        </div>
+
+        <div class="card">
+            <h2>Shared Grocery Budget</h2>
+
+            <p><strong>Decision</strong></p>
+            <p>$250 per week</p>
+
+            <br>
+
+            <p><strong>Reason</strong></p>
+            <p>Provides flexibility while maintaining savings goals.</p>
+        </div>
+
     </div>
 
 </div>
 
+<div class="bottom-nav">
+    <button class="active" onclick="showTab('tonight',this)">Tonight</button>
+    <button onclick="showTab('capture',this)">Capture</button>
+    <button onclick="showTab('topics',this)">Topics</button>
+    <button onclick="showTab('decisions',this)">Decisions</button>
+</div>
+
+</div>
+
 <script>
-function showTab(id, btn){
+function showTab(tabId, button){
 
-    document.querySelectorAll('.tab').forEach(t=>{
-        t.classList.remove('active');
+    document.querySelectorAll('.tab').forEach(tab=>{
+        tab.classList.remove('active');
     });
 
-    document.querySelectorAll('.nav button').forEach(b=>{
-        b.classList.remove('active');
+    document.querySelectorAll('.bottom-nav button').forEach(btn=>{
+        btn.classList.remove('active');
     });
 
-    document.getElementById(id).classList.add('active');
-    btn.classList.add('active');
+    document.getElementById(tabId).classList.add('active');
+    button.classList.add('active');
 }
 </script>
 
